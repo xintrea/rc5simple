@@ -6,3 +6,4 @@
 main
 *.decrypt
 *.encrypt
+git_*.*

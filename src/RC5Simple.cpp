@@ -149,6 +149,7 @@ void RC5Simple::RC5_SetFormatVersionForce(unsigned char formatVersionForce)
 
 
 // Отвлекли: папа, бабушка нам дала адрес бабушки Люды
+// Отвлекли: таймер, готовить макароны
 // Encrypt data block
 // Parameters: 
 // pt - input data
