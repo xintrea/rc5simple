@@ -1,0 +1,3 @@
+This file use for demonstration of file crypting by RC5Simple library.
+
+Diff this file with example.txt.decrypt.

@@ -1,0 +1,8 @@
+# Ignore directories
+/misc
+
+# Ignore files
+*.o
+main
+*.decrypt
+*.encrypt
