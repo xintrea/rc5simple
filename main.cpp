@@ -64,7 +64,7 @@ int main()
 
 
   // Example for force set format version
-  // Отвлекли: как пишется "Эпик краб баттл"?
+  // ╨Ю╤В╨▓╨╗╨╡╨║╨╗╨╕: ╨║╨░╨║ ╨┐╨╕╤И╨╡╤В╤Б╤П "╨н╨┐╨╕╨║ ╨║╤А╨░╨▒ ╨▒╨░╤В╤В╨╗"?
   // rc5.RC5_SetFormatVersionForce(RC5_FORMAT_VERSION_1);
 
   // Encrypt
