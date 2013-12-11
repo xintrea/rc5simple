@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define RC5_SIMPLE_VERSION "RC5Simple Ver. 1.30 / 09.12.2013"
+#define RC5_SIMPLE_VERSION "RC5Simple Ver. 1.30 / 11.12.2013"
 
 #define RC5_FORMAT_VERSION_1 1
 #define RC5_FORMAT_VERSION_2 2
@@ -20,6 +20,13 @@ using namespace std;
 #define RC5_FORMAT_VERSION_CURRENT RC5_FORMAT_VERSION_3
 
 #define RC5_SIMPLE_SIGNATURE "RC5SIMP" // Strong 7 bytes
+
+// For detect 32 or 64 architecture, this code checked LONG_BIT definition.
+// In *NIX GCC this definition is present.
+// In Windows is uncertain. 
+// Try, if need, set this definition at this place.
+// Sample:
+// #define LONG_BIT 64
 
 // If undestand enviroments
 #ifndef LONG_BIT
@@ -70,11 +77,12 @@ typedef unsigned int RC5_TWORD;
 #define RC5_ERROR_CODE_4 4 // Can't create output file
 #define RC5_ERROR_CODE_5 5 // Can't encrypt null data
 #define RC5_ERROR_CODE_6 6 // Can't decrypt null data
+#define RC5_ERROR_CODE_7 7 // Incorrect data size for decrypt data
 
 // Debugging log to console
 // 0 - disable debug print
 // 1 - enable debug print
-#define RC5_ENABLE_DEBUG_PRINT 1
+#define RC5_ENABLE_DEBUG_PRINT 0
 
 #if RC5_ENABLE_DEBUG_PRINT==1
 #define RC5_LOG(X) RC5_LogPrint X
