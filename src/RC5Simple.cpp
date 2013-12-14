@@ -93,8 +93,6 @@ Volgodonsk, 2011-2013
 //        отсутсвия данного определения, компиляция произвдится на 32-х битную
 //        платформу
 
-// Отвлекли: когда будешь ложиться спать, закрой у ребенка окно
-
 // 1.30 - Основана на версии 1.29
 //      - Добавлен формат 3. В предыдущем формате 2 обнаружено
 //        необоснованное занижение количества первичных случайных данных
@@ -113,6 +111,11 @@ Volgodonsk, 2011-2013
 //        из форматов. Везде имеем отчет
 //        ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 //      - Фиксация номера версии
+//      - Пройдены тесты шифрации/дешифрации данных на совместимость 
+//        с предыдущими версиями 
+//      - Пройдены тесты по интеграции и работе в рамках MyTetra
+//      - Удалена информация об отвлекающих факторах
+//      - Финальный коммит, присвоение тега версии
 
 
 RC5Simple::RC5Simple(bool enableRandomInit)
@@ -158,9 +161,6 @@ void RC5Simple::RC5_SetFormatVersionForce(unsigned char formatVersionForce)
 }
 
 
-// Отвлекли: папа, бабушка нам дала адрес бабушки Люды
-// Отвлекли: таймер, готовить макароны
-// Отвлекли: сканируй письмо
 // Encrypt data block
 // Parameters: 
 // pt - input data
@@ -217,7 +217,6 @@ void RC5Simple::RC5_Setup(unsigned char *key)
    int i, j, k;
    RC5_TWORD u=RC5_W/8, a, b, l[RC5_C]; 
 
-   // Отвлекли: потренируй мне складку
    // Initialize l[], then rc5_s[], then mix key into rc5_s[]
    for(i=RC5_B-1, l[RC5_C-1]=0; i!=-1; i--)
     l[i/u] = (l[i/u]<<8)+key[i];
@@ -251,7 +250,6 @@ void RC5Simple::RC5_Setup(unsigned char *key)
 }
 
 
-// Отвлекли: смотри как я кувыркаюсь
 // Set secret key
 void RC5Simple::RC5_SetKey(vector<unsigned char> &key)
 {
@@ -272,8 +270,6 @@ void RC5Simple::RC5_Encrypt(vector<unsigned char> &in, vector<unsigned char> &ou
  // Clear output vector
  out.clear();
  
- // Отвлекли: помой ребенка, потри его мочалкой а то он сам не может
- // Отвлекли: смотри какое платье на кукле
  // No crypt null data
  if(in.size()==0) 
   {
@@ -308,7 +304,6 @@ void RC5Simple::RC5_Encrypt(vector<unsigned char> &in, vector<unsigned char> &ou
  for(int i=0; i<RC5_BLOCK_LEN; i++)
   in[i]=data_size[i];
 
- // Отвлекли: почисть ребенку зубы
  // Add firsted random data
  unsigned int firsRandomDataBlocks=0;
  if(rc5_formatVersion==RC5_FORMAT_VERSION_2)
@@ -369,7 +364,6 @@ void RC5Simple::RC5_Encrypt(vector<unsigned char> &in, vector<unsigned char> &ou
    notCryptDataSize=RC5_BLOCK_LEN;
   }
 
- // Отвлекли: иди поешь
  // In format version 2 or higth save format header (block 0) and IV (block 1)
  if(rc5_formatVersion>=RC5_FORMAT_VERSION_2)
   {
@@ -441,7 +435,6 @@ void RC5Simple::RC5_Encrypt(vector<unsigned char> &in, vector<unsigned char> &ou
     RC5_LOG(( "Ct %.8X, %.8X\n", ct[0], ct[1] ));
    #endif
 
-   // Отвлекли: надо покушать, кончай питаться йогуртами
    // Save crypt data
    for(int i=0; i<RC5_WORD_LEN; i++)
     {
@@ -470,20 +463,14 @@ void RC5Simple::RC5_Encrypt(vector<unsigned char> &in, vector<unsigned char> &ou
  // Return input vector to firsted data
  // -----------------------------------
 
- // Отвлекли: сходи в магазин Магнит, у нас есть нечего
- // Отвлекли: почитай ребенку
  // Remove size block (for all formats)
  in.erase(in.begin(), in.begin()+RC5_BLOCK_LEN);
 
- // Отвлекли: давай поиграем в Shatter
  // Remove random data blocks
  if(firsRandomDataBlocks>0) 
   for(unsigned int n=1; n<=firsRandomDataBlocks; n++)
    in.erase(in.begin(), in.begin()+RC5_BLOCK_LEN);
 
- // Отвлекли: звонок, проверь ребенку зрение
- // Отвлекли: напечатай таблицу проверки зрения
- // Отвлекли: проверь зрение у ребенка и у себя
  // Remove from input vector last random byte for aligning
  if(in.size()>clean_data_size)
   in.erase(in.begin()+clean_data_size, in.end());
@@ -498,7 +485,6 @@ void RC5Simple::RC5_Decrypt(vector<unsigned char> &in, vector<unsigned char> &ou
 
  RC5_LOG(( "\nInput data size: %d\n", in.size() ));
 
- // Отвлекли: иди покушай
  // No decrypt null data
  if(in.size()==0) 
   {
@@ -636,7 +622,6 @@ void RC5Simple::RC5_Decrypt(vector<unsigned char> &in, vector<unsigned char> &ou
    for(int i=0; i<RC5_BLOCK_LEN; i++)
     ct_part[i]^=iv[i];  
 
-   // Отвлекли: попугаи наверно голодные, кто бы их кормил, надо покормить
    if(block==blockWithDataSize)
     {
      data_size=RC5_GetIntFromByte(ct_part[0], ct_part[1], ct_part[2], ct_part[3]);
@@ -678,7 +663,6 @@ void RC5Simple::RC5_Decrypt(vector<unsigned char> &in, vector<unsigned char> &ou
  for(int i=0; i<RC5_BLOCK_LEN; i++)
   iv[i]=0;
 
- // Отвлекли: Пошли за ребенком
  // Remove from output a blocks with technical data (random blocks, size, etc...)
  out.erase(out.begin(), out.begin()+removeBlocksFromOutput*RC5_BLOCK_LEN);
 
@@ -694,11 +678,8 @@ void RC5Simple::RC5_EncryptFile(unsigned char *in_name, unsigned char *out_name)
 }
 
 
-// Отвлекли: что это за пакет? Кухня, Бюджетный вариант?
-// Отвлекли: позвонил дедушка
 void RC5Simple::RC5_EncryptFile(const char *in_name, const char *out_name)
 {
- // Отвлекли: виниловая наклейка как мечь, смотри
  RC5_EncDecFile((unsigned char *)in_name, (unsigned char *)out_name, RC5_MODE_ENCODE);
 }
 
